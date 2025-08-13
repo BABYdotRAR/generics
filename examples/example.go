@@ -1,14 +1,3 @@
-# Generics! by BABYdotRAR
-
-A collection of some utilities involving generic types.
-
-## Installation
-
-~~~bash
-go get github.com/BABYdotRAR/generics
-~~~
-## Example
-~~~Golang
 package main
 
 import (
@@ -35,11 +24,3 @@ func main() {
 		fmt.Println(valuesA, valuesB)
 	}
 }
-
-~~~
-
-### Result
-~~~
-Current stack size: 2
-[Rem is] [the best waifu]
-~~~
