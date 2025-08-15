@@ -8,19 +8,19 @@ A collection of some utilities involving generic types.
 go get github.com/BABYdotRAR/generics
 ~~~
 ## Example
-~~~Golang
+~~~go
 package main
 
 import (
 	"fmt"
 
 	"github.com/BABYdotRAR/generics"
-	"github.com/BABYdotRAR/generics/data_structures"
+	ds "github.com/BABYdotRAR/generics/data_structures"
 )
 
 func main() {
 	// Let's create a stack of maps
-	stack := data_structures.Stack[map[int]string]{}
+	stack := ds.Stack[map[int]string]{}
 	mapA := map[int]string{1: "Rem", 2: "is"}
 	mapB := map[int]string{3: "the", 4: "best", 5: "waifu"}
 	stack.Push(mapB)
@@ -29,7 +29,7 @@ func main() {
 	popA, _ := stack.Pop()
 	popB, _ := stack.Pop()
 	if stack.IsEmpty() {
-		// Now lets use other helpful functions
+		// Now let's use other helpful functions
 		_, valuesA := generics.MapKeysAndValues(popA)
 		_, valuesB := generics.MapKeysAndValues(popB)
 		fmt.Println(valuesA, valuesB)
