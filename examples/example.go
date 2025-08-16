@@ -8,8 +8,13 @@ import (
 )
 
 func main() {
+	stackExample()
+	queueExample()
+}
+
+func stackExample() {
 	// Let's create a stack of maps
-	stack := ds.Stack[map[int]string]{}
+	stack := ds.NewStack[map[int]string]()
 	mapA := map[int]string{1: "Rem", 2: "is"}
 	mapB := map[int]string{3: "the", 4: "best", 5: "waifu"}
 	stack.Push(mapB)
@@ -19,8 +24,43 @@ func main() {
 	popB, _ := stack.Pop()
 	if stack.IsEmpty() {
 		// Now let's use other helpful functions
-		_, valuesA := generics.MapKeysAndValues(popA)
-		_, valuesB := generics.MapKeysAndValues(popB)
+		valuesA := generics.MapValues(popA)
+		valuesB := generics.MapValues(popB)
 		fmt.Println(valuesA, valuesB)
 	}
+}
+
+func queueExample() {
+	// simple queue of numbers
+	queue := ds.NewQueue[int]()
+
+	// enqueue some elements
+	queue.Enqueue(2)
+	queue.Enqueue(4)
+	queue.Enqueue(2)
+	queue.Enqueue(6)
+	queue.Enqueue(5)
+
+	var res []int
+
+	// store the current size of the queue
+	res = append(res, queue.Size())
+	// store all dequeues
+	dequeue, _ := queue.Dequeue()
+	res = append(res, dequeue)
+	dequeue, _ = queue.Dequeue()
+	res = append(res, dequeue)
+	dequeue, _ = queue.Dequeue()
+	res = append(res, dequeue)
+	dequeue, _ = queue.Dequeue()
+	res = append(res, dequeue)
+	dequeue, _ = queue.Dequeue()
+	res = append(res, dequeue)
+	// if an empty queue is dequeued, it returns the zero value and false
+	zero, ok := queue.Dequeue()
+	fmt.Println(zero, ok)
+	// let's see what res looks like
+	fmt.Println(res)
+	// some values are duplicated, let's remove them
+	fmt.Println(generics.Uniques(res))
 }
