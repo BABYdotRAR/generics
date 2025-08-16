@@ -36,7 +36,7 @@ func (q *Queue[T]) Enqueue(val T) {
 	q.size++
 }
 
-// Dequeue retrieves the first element in the queue and removes it. 
+// Dequeue retrieves the first element in the queue and removes it.
 // It returns the zero value for T and false if the queue is empty.
 func (q *Queue[T]) Dequeue() (T, bool) {
 	q.lock.Lock()
@@ -59,9 +59,9 @@ func (q *Queue[T]) Dequeue() (T, bool) {
 	return res.value, true
 }
 
-// Peek only retrieves the first element in the queue without removing it. 
+// Peek only retrieves the first element in the queue without removing it.
 // It returns the zero value for T and false if the queue is empty.
-func (q *Queue[T])Peek() (T, bool) {
+func (q *Queue[T]) Peek() (T, bool) {
 	q.lock.Lock()
 	defer q.lock.Unlock()
 
@@ -74,7 +74,7 @@ func (q *Queue[T])Peek() (T, bool) {
 }
 
 // Size returns the total number of elements in the queue
-func (q *Queue[T])Size() int {
+func (q *Queue[T]) Size() int {
 	q.lock.Lock()
 	defer q.lock.Unlock()
 
@@ -82,7 +82,7 @@ func (q *Queue[T])Size() int {
 }
 
 // Clear resets the queue
-func (q *Queue[T])Clear() {
+func (q *Queue[T]) Clear() {
 	q.lock.Lock()
 	defer q.lock.Unlock()
 
@@ -91,13 +91,13 @@ func (q *Queue[T])Clear() {
 }
 
 // IsEmpty returns whether the queue contains no elements
-func (q *Queue[T])IsEmpty() bool {
+func (q *Queue[T]) IsEmpty() bool {
 	q.lock.Lock()
 	defer q.lock.Unlock()
 
 	return q.isEmpty()
 }
 
-func (q *Queue[T])isEmpty() bool {
+func (q *Queue[T]) isEmpty() bool {
 	return q.front == nil
 }

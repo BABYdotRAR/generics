@@ -62,5 +62,5 @@ func queueExample() {
 	// let's see what res looks like
 	fmt.Println(res)
 	// some values are duplicated, let's remove them
-	fmt.Println(generics.Uniques(res))
+	fmt.Println(generics.Unique(res))
 }
