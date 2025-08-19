@@ -129,3 +129,17 @@ func CoalesceByFunc[T any](isEqual func(T, T) bool, values ...T) T {
 	}
 	return zeroValue
 }
+
+// CompareSlice determines whether 's' and 'target' are equals
+// (same elements at the same position and same slice lengths)
+func CompareSlice[T comparable](s, target []T) bool {
+	if len(s) != len(target) {
+		return false
+	}
+	for i := range s {
+		if s[i] != target[i] {
+			return false
+		}
+	}
+	return true
+}
