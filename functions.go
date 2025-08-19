@@ -60,7 +60,7 @@ func ConvertByJSON[T any](src any) (dest T, err error) {
 	return
 }
 
-// Clamp limits the value of val, if it's lower than low, it returns low, 
+// Clamp limits the value of val, if it's lower than low, it returns low,
 // if val is higher that high, it returns high, otherwise returns val
 func Clamp[T cmp.Ordered](low, high, val T) T {
 	if val < low {
@@ -92,8 +92,8 @@ func InBetweenIncludingHigh[T cmp.Ordered](low, high, val T) bool {
 	return low < val && high >= val
 }
 
-// Uniques returns all unique elements in s
-func Uniques[K comparable](s []K) (u []K) {
+// Unique returns all unique elements in s
+func Unique[K comparable](s []K) (u []K) {
 	existingElements := map[K]bool{}
 	for _, v := range s {
 		if existingElements[v] {
@@ -118,7 +118,7 @@ func Coalesce[T comparable](values ...T) T {
 }
 
 // CoalesceByFunc, just like the sql function, returns the first non-zero value from values,
-// it uses isEqual(T, T) to determine whether the values are equals to the zero value, 
+// it uses isEqual(T, T) to determine whether the values are equals to the zero value,
 // if all values are zero, then the function returns the zero value
 func CoalesceByFunc[T any](isEqual func(T, T) bool, values ...T) T {
 	var zeroValue T
