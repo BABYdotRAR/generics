@@ -187,3 +187,21 @@ func CompareSlice[T comparable](s, target []T) bool {
 	}
 	return true
 }
+
+// IsSubset returns whether a is subset of b (duplicates ignored)
+func IsSubset[T comparable](a, b []T) bool {
+	if len(a) == 0 {
+		return true
+	}
+	if len(b) == 0 {
+		return false
+	}
+	
+	bMap := SliceToBoolMap(b)
+	for _, v := range a {
+		if !bMap[v] {
+			return false
+		}
+	}
+	return true
+}
