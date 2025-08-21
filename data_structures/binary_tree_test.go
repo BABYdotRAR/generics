@@ -1,11 +1,13 @@
 package ds
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestBFS(t *testing.T) {
 	res := make(map[int][]int)
 	expectedOutput, output := []int{12, 45, 33, 3, 4, 0, 20, 1, 7}, []int{}
-	BFS(buildTestTree(), 0, res)
+	buildTestTree().BFS(0, res)
 	for i := 0; i < len(res); i++ {
 		output = append(output, res[i]...)
 	}
@@ -18,7 +20,7 @@ func TestBFS(t *testing.T) {
 func TestInOrder(t *testing.T) {
 	expectedOutput := []int{0, 3, 20, 45, 12, 33, 1, 4, 7}
 	var output []int
-	InOrder(buildTestTree(), &output)
+	buildTestTree().InOrder(&output)
 
 	if !compareSlice(output, expectedOutput) {
 		t.Errorf("Incorrect order, want: %+v, received: %+v", expectedOutput, output)
@@ -28,7 +30,7 @@ func TestInOrder(t *testing.T) {
 func TestPreOrder(t *testing.T) {
 	expectedOutput := []int{12, 45, 3, 0, 20, 33, 4, 1, 7}
 	var output []int
-	PreOrder(buildTestTree(), &output)
+	buildTestTree().PreOrder(&output)
 
 	if !compareSlice(output, expectedOutput) {
 		t.Errorf("Incorrect order, want: %+v, received: %+v", expectedOutput, output)
@@ -38,10 +40,16 @@ func TestPreOrder(t *testing.T) {
 func TestPostOrder(t *testing.T) {
 	expectedOutput := []int{0, 20, 3, 45, 1, 7, 4, 33, 12}
 	var output []int
-	PostOrder(buildTestTree(), &output)
+	buildTestTree().PostOrder(&output)
 
 	if !compareSlice(output, expectedOutput) {
 		t.Errorf("Incorrect order, want: %+v, received: %+v", expectedOutput, output)
+	}
+}
+
+func TestHeight(t *testing.T) {
+	if buildTestTree().Height() != 3 {
+		t.Errorf("Incorrect height, want: 3, received: %+v", buildTestTree().Height())
 	}
 }
 

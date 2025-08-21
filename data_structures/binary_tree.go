@@ -1,8 +1,25 @@
 package ds
 
+import "github.com/BABYdotRAR/generics"
+
+// NewBinaryTree retrieves a new generic binary tree
+func NewBinaryTree[T any]() *TreeNode[T] {
+	return &TreeNode[T]{}
+}
+
+// TreeNode is the base struct for a generic binary tree
 type TreeNode[T any] struct {
 	Value       T
 	Left, Right *TreeNode[T]
+}
+
+func (t *TreeNode[T]) Height() int {
+	if t == nil {
+		return -1
+	}
+	lHeight := t.Left.Height()
+	rHeight := t.Right.Height()
+	return generics.Max(lHeight, rHeight) + 1
 }
 
 type Comparator[T any] interface {
@@ -10,7 +27,9 @@ type Comparator[T any] interface {
 	Less(a, b T) bool
 }
 
-func BFS[T any](node *TreeNode[T], level int, res map[int][]T) {
+// BFS returns res which is a map where the key represents the level of the tree
+// and the values are the elements in that level from left to right
+func (node *TreeNode[T]) BFS(level int, res map[int][]T) {
 	if node == nil {
 		return
 	}
@@ -20,35 +39,38 @@ func BFS[T any](node *TreeNode[T], level int, res map[int][]T) {
 
 	res[level] = append(res[level], node.Value)
 
-	BFS(node.Left, level+1, res)
-	BFS(node.Right, level+1, res)
+	node.Left.BFS(level+1, res)
+	node.Right.BFS(level+1, res)
 }
 
-func InOrder[T any](tree *TreeNode[T], res *[]T) {
+// InOrder visits all nodes in the sequence: Left → Root → Right
+func (tree *TreeNode[T]) InOrder(res *[]T) {
 	if tree == nil {
 		return
 	}
-	InOrder(tree.Left, res)
+	tree.Left.InOrder(res)
 	*res = append(*res, tree.Value)
-	InOrder(tree.Right, res)
+	tree.Right.InOrder(res)
 }
 
-func PreOrder[T any](tree *TreeNode[T], res *[]T) {
+// PreOrder visits all nodes in the sequence: Root → Left → Right
+func (tree *TreeNode[T]) PreOrder(res *[]T) {
 	if tree == nil {
 		return
 	}
 
 	*res = append(*res, tree.Value)
-	PreOrder(tree.Left, res)
-	PreOrder(tree.Right, res)
+	tree.Left.PreOrder(res)
+	tree.Right.PreOrder(res)
 }
 
-func PostOrder[T any](tree *TreeNode[T], res *[]T) {
+// PostOrder visits all nodes in the sequence: Left → Right → Root
+func (tree *TreeNode[T]) PostOrder(res *[]T) {
 	if tree == nil {
 		return
 	}
 
-	PostOrder(tree.Left, res)
-	PostOrder(tree.Right, res)
+	tree.Left.PostOrder(res)
+	tree.Right.PostOrder(res)
 	*res = append(*res, tree.Value)
 }
