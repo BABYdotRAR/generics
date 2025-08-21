@@ -15,6 +15,36 @@ func TestBFS(t *testing.T) {
 	}
 }
 
+func TestInOrder(t *testing.T) {
+	expectedOutput := []int{0, 3, 20, 45, 12, 33, 1, 4, 7}
+	var output []int
+	InOrder(buildTestTree(), &output)
+
+	if !compareSlice(output, expectedOutput) {
+		t.Errorf("Incorrect order, want: %+v, received: %+v", expectedOutput, output)
+	}
+}
+
+func TestPreOrder(t *testing.T) {
+	expectedOutput := []int{12, 45, 3, 0, 20, 33, 4, 1, 7}
+	var output []int
+	PreOrder(buildTestTree(), &output)
+
+	if !compareSlice(output, expectedOutput) {
+		t.Errorf("Incorrect order, want: %+v, received: %+v", expectedOutput, output)
+	}
+}
+
+func TestPostOrder(t *testing.T) {
+	expectedOutput := []int{0, 20, 3, 45, 1, 7, 4, 33, 12}
+	var output []int
+	PostOrder(buildTestTree(), &output)
+
+	if !compareSlice(output, expectedOutput) {
+		t.Errorf("Incorrect order, want: %+v, received: %+v", expectedOutput, output)
+	}
+}
+
 func compareSlice[T comparable](s, target []T) bool {
 	if len(s) != len(target) {
 		return false
