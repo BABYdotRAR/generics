@@ -1,3 +1,5 @@
+// Package generics provides utility functions and data structures
+// that make working with Go generics easier.
 package generics
 
 import (
@@ -92,6 +94,50 @@ func InBetweenIncludingHigh[T cmp.Ordered](low, high, val T) bool {
 	return low < val && high >= val
 }
 
+// Min returns the minimum element of values
+func Min[T cmp.Ordered](values ...T) T {
+	return MinByFunc(func(a, b T) bool { return a < b }, values...)
+}
+
+// MinByFunc returns the minimum element of values using the less function.
+// less: returns whether a < b
+func MinByFunc[T any](less func(a, b T) bool, values ...T) T {
+	if len(values) == 0 {
+		var zero T
+		return zero
+	}
+
+	min := values[0]
+	for i := 1; i < len(values); i++ {
+		if less(values[i], min) {
+			min = values[i]
+		}
+	}
+	return min
+}
+
+// Max returns the maximum element of values
+func Max[T cmp.Ordered](values ...T) T {
+	return MaxByFunc(func(a, b T) bool { return a < b }, values...)
+}
+
+// MaxByFunc returns the maximum element of values using the less function.
+// less: returns whether a < b
+func MaxByFunc[T any](less func(a, b T) bool, values ...T) T {
+	if len(values) == 0 {
+		var zero T
+		return zero
+	}
+
+	max := values[0]
+	for i := 1; i < len(values); i++ {
+		if less(max, values[i]) {
+			max = values[i]
+		}
+	}
+	return max
+}
+
 // Unique returns all unique elements in s
 func Unique[K comparable](s []K) (u []K) {
 	existingElements := map[K]bool{}
@@ -128,4 +174,36 @@ func CoalesceByFunc[T any](isEqual func(T, T) bool, values ...T) T {
 		}
 	}
 	return zeroValue
+}
+
+// CompareSlice determines whether 's' and 'target' are equals
+// (same elements at the same position and same slice lengths)
+func CompareSlice[T comparable](s, target []T) bool {
+	if len(s) != len(target) {
+		return false
+	}
+	for i := range s {
+		if s[i] != target[i] {
+			return false
+		}
+	}
+	return true
+}
+
+// IsSubset returns whether a is subset of b (duplicates ignored)
+func IsSubset[T comparable](a, b []T) bool {
+	if len(a) == 0 {
+		return true
+	}
+	if len(b) == 0 {
+		return false
+	}
+
+	bMap := SliceToBoolMap(b)
+	for _, v := range a {
+		if !bMap[v] {
+			return false
+		}
+	}
+	return true
 }

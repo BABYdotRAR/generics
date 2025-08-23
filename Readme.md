@@ -1,11 +1,11 @@
 # Generics! by BABYdotRAR
 
-A collection of some utilities involving generic types.
+A collection of some utilities involving generic types and some data structures.
 
 ## Installation
 
 ~~~bash
-go get github.com/BABYdotRAR/generics@latest
+go get github.com/BABYdotRAR/generics@v0.3.0
 ~~~
 ## Stack Example
 ~~~go
