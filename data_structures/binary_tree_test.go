@@ -2,6 +2,8 @@ package ds
 
 import (
 	"testing"
+
+	"github.com/BABYdotRAR/generics"
 )
 
 func TestBFS(t *testing.T) {
@@ -54,15 +56,7 @@ func TestHeight(t *testing.T) {
 }
 
 func compareSlice[T comparable](s, target []T) bool {
-	if len(s) != len(target) {
-		return false
-	}
-	for i := range s {
-		if s[i] != target[i] {
-			return false
-		}
-	}
-	return true
+	return generics.CompareSlice(s, target)
 }
 
 func buildTestTree() *TreeNode[int] {

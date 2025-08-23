@@ -13,6 +13,7 @@ type TreeNode[T any] struct {
 	Left, Right *TreeNode[T]
 }
 
+// Height returns the maximum depth of the tree
 func (t *TreeNode[T]) Height() int {
 	if t == nil {
 		return -1

@@ -1,3 +1,5 @@
+// Package generics provides utility functions and data structures
+// that make working with Go generics easier.
 package generics
 
 import (
@@ -196,7 +198,7 @@ func IsSubset[T comparable](a, b []T) bool {
 	if len(b) == 0 {
 		return false
 	}
-	
+
 	bMap := SliceToBoolMap(b)
 	for _, v := range a {
 		if !bMap[v] {
